@@ -11,11 +11,11 @@ ROUNDS = 10
 BASE_SCALE = 100
 
 BONUS = {
-    "synonyms": 0.20,
-    "hypernyms": 0.12,
-    "hyponyms": 0.12,
-    "meronyms": 0.08,
-    "antonyms": 0.06,
+    "synonyms": 0.30,
+    "hypernyms": 0.22,
+    "hyponyms": 0.22,
+    "meronyms": 0.12,
+    "antonyms": 0.10,
 }
 
 try:
@@ -47,14 +47,10 @@ def _lemmas_for_synset(syn) -> Set[str]:
     return {_lemma_str(l.name()) for l in syn.lemmas()}
 
 
-def noun_synsets(w: str):
-    return [s for s in wn.synsets(w) if s.pos() == "n"]
-
-
 def max_noun_wup(a: str, b: str) -> float:
-    """Best Wu–Palmer across noun senses (0..1)."""
     best = 0.0
-    s1, s2 = noun_synsets(a), noun_synsets(b)
+    s1 = wn.synsets(a, pos=wn.NOUN)
+    s2 = wn.synsets(b, pos=wn.NOUN)
     for x in s1:
         for y in s2:
             sim = x.wup_similarity(y)
@@ -157,7 +153,7 @@ def game_step(board: List[str], bag: List[str], recycle: List[str],
         cleared_words = [w for (w, *_) in cleared_slice]
 
         gained_total = gained_base = gained_bonus = 0
-        report_lines.append(f"\n🔥 TARGET '{target_word}' FELL BELOW THE LINE! Words cleared:\n")
+        report_lines.append(f"\nTARGET '{target_word}' FELL BELOW THE LINE! Words cleared:\n")
         report_lines.append(f"{'Word':<12} {'WuP':<6} {'BonusType':<12} {'Bonus':<6} {'Pts':<6}")
         report_lines.append("-" * 50)
 
@@ -178,8 +174,8 @@ def game_step(board: List[str], bag: List[str], recycle: List[str],
         target_word = board[0] if board else ""
 
         report_lines.append("-" * 50)
-        report_lines.append(f"🏆 Points gained: {gained_total}  (Base={gained_base}  Bonus={gained_bonus})")
-        report_lines.append(f"💯 Total Score: {score}\n")
+        report_lines.append(f"Points gained: {gained_total}  (Base={gained_base}  Bonus={gained_bonus})")
+        report_lines.append(f"Total Score: {score}\n")
 
     else:
         board = new_board
@@ -187,9 +183,9 @@ def game_step(board: List[str], bag: List[str], recycle: List[str],
         for (w, sim, bonus_sim, bonus_label, _tot) in scored_all:
             if w == target_word:
                 reason = bonus_label if bonus_label else "none"
-                report_lines.append(f"🔎 Target '{w}': WuP={sim:.2f}, bonus={bonus_sim:.2f} ({reason})")
+                report_lines.append(f"Target '{w}': WuP={sim:.2f}, bonus={bonus_sim:.2f} ({reason})")
                 break
-        report_lines.append(f"💯 Total Score: {score}\n")
+        report_lines.append(f"Total Score: {score}\n")
 
     return board, bag, recycle, target_word, score, "\n".join(report_lines)
 
