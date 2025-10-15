@@ -112,8 +112,11 @@ def get_all_predictions(text_sentence, model_name, top_clean=5):
         # ========================= GPT =================================
         input_ids = encode_gpt(gpt_tokenizer, text_sentence)
         with torch.no_grad():
-            predict = gpt_model(input_ids)[0][:, -1, :]
-        gpt = decode_gpt(gpt_tokenizer, input_ids, predict, top_clean)
+            outputs = gpt_model.generate(input_ids, max_length=input_ids.shape[1] + no_words_to_be_predicted,
+                                         do_sample=True, top_k=50, top_p=0.95,
+                                         num_return_sequences=1, pad_token_id=gpt_tokenizer.eos_token_id, )
+        decoded_text = gpt_tokenizer.decode(outputs[0], skip_special_tokens=True)
+        gpt = decoded_text[len(enter_input_text):].strip()
         return {'gpt': gpt}
 
     else:
@@ -125,8 +128,10 @@ def get_all_predictions(text_sentence, model_name, top_clean=5):
             print(prompt_length)
             predict = xlnet_model.generate(input_ids, max_length=prompt_length, do_sample=True, top_p=0.95,
                                            top_k=top_clean)
-        xlnet = xlnet_tokenizer.decode(predict[0])[prompt_length+1:]
 
+        xlnet = xlnet_tokenizer.decode(predict[0])[prompt_length:]
+        for special in ["<eod>", "<eos>", "</s>"]:
+            xlnet = xlnet.replace(special, "")
         # xlnet = decode_xlnet(text_sentence, xlnet_tokenizer, predict, prompt_length)
         return {'xlnet': xlnet}
 
@@ -174,12 +179,7 @@ try:
 
         elif select_model.lower() == "gpt":
             gpt_tokenizer, gpt_model = load_model(select_model)
-            input_ids = encode_gpt(gpt_tokenizer, enter_input_text)
-            with torch.no_grad():
-                outputs = gpt_model.generate ( input_ids, max_length=input_ids.shape[1] + no_words_to_be_predicted, do_sample=True, top_k=50, top_p=0.95,
-                                              num_return_sequences=1, pad_token_id=gpt_tokenizer.eos_token_id, )
-            decoded_text = gpt_tokenizer.decode(outputs[0], skip_special_tokens=True)
-            continuation = decoded_text[len(enter_input_text):].strip()
+            continuation = get_prediction_end_of_sentence(enter_input_text, select_model)
             print("Result is: {}".format(continuation))
 
         else:
@@ -190,4 +190,4 @@ try:
 
 except Exception as e:
     print(e)
-    print('Some problem occured')
+    print('Some problem occurred')
