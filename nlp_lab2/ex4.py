@@ -165,6 +165,9 @@ try:
                                                                                  enter_input_text="I am waiting for")
         print()
         if select_model.lower() == "bert":
+            no_words_to_be_predicted, select_model, enter_input_text = set_model_config(no_words_to_be_predicted=1,
+                                                                                        select_model=model_name,
+                                                                                        enter_input_text="I am waiting for")
             bert_tokenizer, bert_model = load_model(select_model)
             res = get_prediction_end_of_sentence(enter_input_text, select_model)
             print("result is: {}".format(res))
@@ -175,6 +178,15 @@ try:
                 answer_as_string_bert = "    ".join(answer_bert)
                 print("output answer is: {}".format(answer_as_string_bert))
                 # print(f"Predicted List is Here: {answer_as_string_bert}")
+            for i in res['bert'].split("\n"):
+                input = enter_input_text +" " +i
+                no_words_to_be_predicted, select_model, enter_input_text = set_model_config(no_words_to_be_predicted=1,
+                                                                                            select_model=model_name,
+                                                                                            enter_input_text=input)
+
+                res = get_prediction_end_of_sentence(enter_input_text, select_model)
+                print("result is: {}".format(res))
+                # print("output answer is: {}".format(answer_as_string_bert))
 
 
         elif select_model.lower() == "gpt":
