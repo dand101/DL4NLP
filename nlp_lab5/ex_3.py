@@ -71,7 +71,7 @@ def top_terms(H: np.ndarray, vocab: np.ndarray, topn=10) -> pd.DataFrame:
 if LOAD_FROM_DIR:
     paths = sorted(glob.glob(os.path.join(TEXTS_DIR, "*.txt")))
     if not paths:
-        print(f"⚠️  No .txt files in {TEXTS_DIR}. Using fallback examples.")
+        print(f"No .txt files in {TEXTS_DIR}. Using fallback examples.")
         documents = FALLBACK
         filenames = [f"fallback_{i + 1}.txt" for i in range(len(FALLBACK))]
         topics = ["fallback"] * len(FALLBACK)
@@ -94,7 +94,7 @@ if SAVE_CSVS:
     pd.DataFrame({"filename": filenames, "topic": topics, "original": documents, "cleaned": clean_docs}) \
         .to_csv("cleaned_documents.csv", index=False)
 
-print("\n✅ Preprocessing done (stopwords removed, lemmatized).")
+print("\nPreprocessing done (stopwords removed, lemmatized).")
 
 tfidf_vect = TfidfVectorizer(min_df=1, max_df=0.9)
 X_tfidf = tfidf_vect.fit_transform(clean_docs)
@@ -175,4 +175,4 @@ if SAVE_CSVS:
     print("  - top_terms_NMF_BOW.csv")
     print("  - doc_loadings_NMF_BOW.csv")
 
-print("\n✅ Done.")
+print("\nDone.")

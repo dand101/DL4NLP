@@ -45,7 +45,7 @@ def guess_topic_from_name(name: str) -> str:
 if LOAD_FROM_DIR:
     paths = sorted(glob.glob(os.path.join(TEXTS_DIR, "*.txt")))
     if not paths:
-        print(f"⚠️ No .txt files in {TEXTS_DIR}. Using fallback examples.")
+        print(f"No .txt files in {TEXTS_DIR}. Using fallback examples.")
         documents = FALLBACK
         filenames = [f"fallback_{i + 1}.txt" for i in range(len(FALLBACK))]
         topics = ["fallback"] * len(FALLBACK)
