@@ -1,0 +1,55 @@
+C:\Users\dando\Documents\GitHub\DL4NLP\nlp_lab5\.venv\Scripts\python.exe C:\Users\dando\Documents\GitHub\DL4NLP\Project\tests\log_reg.py
+
+============================================================
+RESULTS FOR: Multinomial Naive Bayes (CountVectorizer)
+============================================================
+Accuracy: 0.7116
+Macro F1: 0.6858
+
+Per-class precision / recall / F1:
+  Label 0: precision=0.7667, recall=0.7854, f1=0.7759, support=410
+  Label 1: precision=0.6089, recall=0.5830, f1=0.5957, support=235
+
+Confusion matrix:
+        pred_0  pred_1
+true_0     322      88
+true_1      98     137
+
+Full classification report:
+              precision    recall  f1-score   support
+
+           0     0.7667    0.7854    0.7759       410
+           1     0.6089    0.5830    0.5957       235
+
+    accuracy                         0.7116       645
+   macro avg     0.6878    0.6842    0.6858       645
+weighted avg     0.7092    0.7116    0.7102       645
+
+
+============================================================
+RESULTS FOR: Logistic Regression (TF-IDF)
+============================================================
+Accuracy: 0.7194
+Macro F1: 0.6519
+
+Per-class precision / recall / F1:
+  Label 0: precision=0.7206, recall=0.9122, f1=0.8052, support=410
+  Label 1: precision=0.7143, recall=0.3830, f1=0.4986, support=235
+
+Confusion matrix:
+        pred_0  pred_1
+true_0     374      36
+true_1     145      90
+
+Full classification report:
+              precision    recall  f1-score   support
+
+           0     0.7206    0.9122    0.8052       410
+           1     0.7143    0.3830    0.4986       235
+
+    accuracy                         0.7194       645
+   macro avg     0.7175    0.6476    0.6519       645
+weighted avg     0.7183    0.7194    0.6935       645
+
+
+Process finished with exit code 0
