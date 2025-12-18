@@ -1,0 +1,2 @@
+language  eval_loss  eval_f1_macro  eval_f1_class_0  eval_f1_class_1  eval_precision_class_0  eval_recall_class_0  eval_precision_class_1  eval_recall_class_1  eval_runtime  eval_samples_per_second  eval_steps_per_second  epoch
+ eng.csv   0.436036       0.818335         0.857143         0.779528                0.898396             0.819512                0.727941             0.838983        0.6542                  493.695                 62.667    5.0
