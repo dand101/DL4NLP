@@ -1,29 +1,22 @@
-from pathlib import Path
-
 import numpy as np
 import pandas as pd
 import torch
 import yaml
 import wandb
-from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.utils import compute_class_weight
 
-from tests.subtask1.dataset import PolarizationDataset
+from tests.subtask1.test_1.dataset import PolarizationDataset
 
 
 from transformers import (
-    AutoTokenizer,
-    AutoConfig,
-    AutoModelForSequenceClassification,
-    Trainer,
     TrainingArguments,
     DataCollatorWithPadding
 )
 
-from tests.subtask1.evaluate import compute_metrics
-from tests.subtask1.model import get_model_tokenizer
-from tests.subtask1.trainer import WeightedTrainer
+from tests.subtask1.test_1.evaluate import compute_metrics
+from tests.subtask1.test_1.model import get_model_tokenizer
+from tests.subtask1.test_1.trainer import WeightedTrainer
 
 CFG_PATH = "config.yaml"
 
@@ -55,7 +48,7 @@ def train(language_file):
     val_dataset = PolarizationDataset(val_df['text'].tolist(), val_df['polarization'].tolist(), tokenizer)
 
     training_args = TrainingArguments(
-            output_dir=f"../",
+            output_dir=f"../../",
             num_train_epochs=cfg.get("num_epochs", 3),
             learning_rate=cfg.get("learning_rate", 2e-5),
             per_device_train_batch_size=cfg.get("per_device_train_batch_size", 64),

@@ -3,7 +3,7 @@ from datetime import datetime
 
 import pandas as pd
 
-from tests.subtask1.baseline_train import train
+from tests.subtask1.test_1.baseline_train import train
 import torch
 print(torch.cuda.is_available())
 print(torch.cuda.device_count())
@@ -14,7 +14,7 @@ if __name__ == '__main__':
     # language_files = []
     all_results = []
     if len(language_files) == 0:
-        for file in os.listdir('../../data/dev_phase/subtask1/train'):
+        for file in os.listdir('../../../data/dev_phase/subtask1/train'):
             if file.endswith('.csv'):
                 language_files.append(file)
 
