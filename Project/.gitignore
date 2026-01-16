@@ -1,2 +1,14 @@
 /tests/subtask1/test_2/outputs/checkpoints_roberta_large_eng/
 /tests/subtask1/test_2/outputs/saves/plots_an_stuff/3/checkpoints_roberta_large_eng/
+/config_api.yaml
+/tests/subtask1/test_2/outputs/cv_fold_2/
+/tests/subtask1/test_2/outputs/cv_fold_1/
+/tests/subtask1/test_2/outputs/cv_fold_4/
+/tests/subtask1/test_2/outputs/cv_fold_3/
+/tests/subtask1/test_2/outputs/cv_fold_5/
+/tests/subtask1/test_2/outputs/saves/checkpoint-300/
+/tests/subtask1/test_2/outputs/saves/saved_folds/cv_fold_1/
+/tests/subtask1/test_2/outputs/saves/saved_folds/cv_fold_2/
+/tests/subtask1/test_2/outputs/saves/saved_folds/cv_fold_3/
+/tests/subtask1/test_2/outputs/saves/saved_folds/cv_fold_4/
+/tests/subtask1/test_2/outputs/saves/saved_folds/cv_fold_5/

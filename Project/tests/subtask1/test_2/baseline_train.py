@@ -8,7 +8,6 @@ from sklearn.utils import compute_class_weight
 
 from tests.subtask1.test_1.dataset import PolarizationDataset
 
-
 from transformers import (
     TrainingArguments,
     DataCollatorWithPadding
@@ -26,10 +25,7 @@ def load_cfg(path=CFG_PATH):
         return yaml.safe_load(f)
 
 
-
-
 def train(language_file):
-
     cfg = load_cfg()
     wandb.init(mode="disabled")
 
@@ -48,25 +44,23 @@ def train(language_file):
     val_dataset = PolarizationDataset(val_df['text'].tolist(), val_df['polarization'].tolist(), tokenizer)
 
     training_args = TrainingArguments(
-            output_dir=f"../../",
-            num_train_epochs=cfg.get("num_epochs", 3),
-            learning_rate=cfg.get("learning_rate", 2e-5),
-            per_device_train_batch_size=cfg.get("per_device_train_batch_size", 64),
-            per_device_eval_batch_size=cfg.get("per_device_eval_batch_size", 8),
-            eval_strategy="epoch",
-            save_strategy="epoch",
-            metric_for_best_model="eval_f1_macro",
-            load_best_model_at_end=True,
-            greater_is_better=True,
-            save_total_limit=1,
-            logging_steps=100,
-            disable_tqdm=False,
-            fp16=True,
-        )
+        output_dir=f"../../",
+        num_train_epochs=cfg.get("num_epochs", 3),
+        learning_rate=cfg.get("learning_rate", 2e-5),
+        per_device_train_batch_size=cfg.get("per_device_train_batch_size", 64),
+        per_device_eval_batch_size=cfg.get("per_device_eval_batch_size", 8),
+        eval_strategy="epoch",
+        save_strategy="epoch",
+        metric_for_best_model="eval_f1_macro",
+        load_best_model_at_end=True,
+        greater_is_better=True,
+        save_total_limit=1,
+        logging_steps=100,
+        disable_tqdm=False,
+        fp16=True,
+    )
 
     labels = train["polarization"].values
-
-
 
     class_weights = compute_class_weight(
         class_weight="balanced",
@@ -93,8 +87,5 @@ def train(language_file):
 
     eval_results = trainer.evaluate()
     print(f"Macro F1 score on validation set: {eval_results['eval_f1_macro']}")
-
-
-
 
     return eval_results

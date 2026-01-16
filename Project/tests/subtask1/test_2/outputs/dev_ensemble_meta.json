@@ -1,0 +1,28 @@
+C:\Users\dando\Documents\GitHub\DL4NLP\nlp_lab5\.venv\Scripts\python.exe C:\Users\dando\Documents\GitHub\DL4NLP\Project\tests\subtask1\test_2\cv_post_summary.py 
+[OK] fold 1 -> keys: ['epoch', 'eval_accuracy', 'eval_f1_0', 'eval_f1_1', 'eval_loss', 'eval_macro_f1', 'eval_precision_0', 'eval_precision_1', 'eval_recall_0', 'eval_recall_1', 'eval_runtime', 'eval_samples_per_second', 'eval_steps_per_second', 'fold', 'fold_dir', 'step']
+[OK] fold 2 -> keys: ['epoch', 'eval_accuracy', 'eval_f1_0', 'eval_f1_1', 'eval_loss', 'eval_macro_f1', 'eval_precision_0', 'eval_precision_1', 'eval_recall_0', 'eval_recall_1', 'eval_runtime', 'eval_samples_per_second', 'eval_steps_per_second', 'fold', 'fold_dir', 'step']
+[OK] fold 3 -> keys: ['epoch', 'eval_accuracy', 'eval_f1_0', 'eval_f1_1', 'eval_loss', 'eval_macro_f1', 'eval_precision_0', 'eval_precision_1', 'eval_recall_0', 'eval_recall_1', 'eval_runtime', 'eval_samples_per_second', 'eval_steps_per_second', 'fold', 'fold_dir', 'step']
+[OK] fold 4 -> keys: ['epoch', 'eval_accuracy', 'eval_f1_0', 'eval_f1_1', 'eval_loss', 'eval_macro_f1', 'eval_precision_0', 'eval_precision_1', 'eval_recall_0', 'eval_recall_1', 'eval_runtime', 'eval_samples_per_second', 'eval_steps_per_second', 'fold', 'fold_dir', 'step']
+[OK] fold 5 -> keys: ['epoch', 'eval_accuracy', 'eval_f1_0', 'eval_f1_1', 'eval_loss', 'eval_macro_f1', 'eval_precision_0', 'eval_precision_1', 'eval_recall_0', 'eval_recall_1', 'eval_runtime', 'eval_samples_per_second', 'eval_steps_per_second', 'fold', 'fold_dir', 'step']
+
+=== CV FOLD SUMMARY (from cv_fold_* folders) ===
+ fold  eval_macro_f1  eval_accuracy  eval_precision_0  eval_precision_1
+    1       0.857718       0.857741          0.874459          0.842105
+    2       0.866956       0.867155          0.906178          0.834297
+    3       0.848326       0.848326          0.852941          0.843750
+    4       0.857738       0.857741          0.860125          0.855346
+    5       0.858638       0.858787          0.889640          0.832031
+
+Saved merged metrics to: outputs\cv_fold_metrics_merged.csv
+
+=== ENSEMBLE INFERENCE METRICS ===
+Could not compute ensemble metrics because per-example eval logits/labels were not found.
+To enable this, save per-fold eval predictions (logits + labels) to one of these formats per fold:
+  - eval_predictions.npz (keys: logits, labels) OR predictions.npz
+  - eval_logits.npy + eval_labels.npy
+  - logits.npy + labels.npy
+
+NOTE: If you want an ensemble over the *full dataset* (OOF), you must save out-of-fold predictions
+with original example indices, not just per-fold validation splits.
+
+Process finished with exit code 0

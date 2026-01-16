@@ -75,32 +75,14 @@ def main():
     df[cfg["label_col"]] = df[cfg["label_col"]].astype(int)
     df[cfg["text_col"]] = df[cfg["text_col"]].astype(str)
 
-    if "aug_tag" in df.columns:
-        orig_df = df[df["aug_tag"].astype(str).str.lower() == "original"].reset_index(drop=True)
-        aug_df = df[df["aug_tag"].astype(str).str.lower() != "original"].reset_index(drop=True)
-
-        train_orig, test_df = train_test_split(
-            orig_df,
-            test_size=cfg["test_size"],
-            random_state=cfg["seed"],
-            stratify=orig_df[cfg["label_col"]],
+    if cfg.get("balance_test", True):
+        train_df, test_df = balanced_train_test_split(
+            df, label_col=cfg["label_col"], test_size=cfg["test_size"], seed=cfg["seed"]
         )
-
-        train_df = pd.concat([train_orig, aug_df], ignore_index=True)
-
-        val_texts = set(test_df[cfg["text_col"]].astype(str).tolist())
-        train_df = train_df[~train_df[cfg["text_col"]].astype(str).isin(val_texts)].reset_index(drop=True)
-
-        print(f"[Leakage-safe] orig_df={len(orig_df)} aug_df={len(aug_df)} -> train={len(train_df)} val={len(test_df)}")
     else:
-        if cfg.get("balance_test", True):
-            train_df, test_df = balanced_train_test_split(
-                df, label_col=cfg["label_col"], test_size=cfg["test_size"], seed=cfg["seed"]
-            )
-        else:
-            train_df, test_df = train_test_split(
-                df, test_size=cfg["test_size"], random_state=cfg["seed"], stratify=df[cfg["label_col"]]
-            )
+        train_df, test_df = train_test_split(
+            df, test_size=cfg["test_size"], random_state=cfg["seed"], stratify=df[cfg["label_col"]]
+        )
 
     print("Train label counts:\n", train_df[cfg["label_col"]].value_counts())
     print("Test label counts:\n", test_df[cfg["label_col"]].value_counts())

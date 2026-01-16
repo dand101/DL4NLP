@@ -2,7 +2,7 @@ seed: 42
 language: eng
 
 data_root: data/dev_phase/subtask1
-train_file: train/eng.csv
+train_file: train/eng_aug.csv
 dev_file: dev/eng.csv
 
 text_col: text
@@ -14,12 +14,14 @@ num_labels: 2
 max_length: 256
 
 test_size: 0.1
-balance_test: true
+balance_test: false
 
 use_class_weights: false
 
-#learning_rate: 1e-5
-learning_rate: 5e-6
+learning_rate: 1e-5
+#learning_rate: 5e-6
+#learning_rate: 2e-5
+
 lr_scheduler_type: cosine
 
 optim: adamw_torch
@@ -29,7 +31,7 @@ max_grad_norm: 1
 
 weight_decay: 0.01
 warmup_ratio: 0.10
-label_smoothing_factor: 0.05
+label_smoothing_factor: 0.0
 
 
 num_train_epochs: 5
@@ -38,7 +40,7 @@ per_device_train_batch_size: 4
 per_device_eval_batch_size: 8
 gradient_accumulation_steps: 4
 
-fp16: true
+fp16: false
 
 eval_strategy: steps
 eval_steps: 100
@@ -48,7 +50,6 @@ save_steps: 100
 save_total_limit: 1
 
 load_best_model_at_end: true
-
 metric_for_best_model: eval_macro_f1
 greater_is_better: true
 
@@ -57,5 +58,17 @@ report_to: none
 
 output_dir: outputs/checkpoints_roberta_large_eng
 outputs_dir: outputs
-predictions_file: outputs/eng_dev_predictions.csv
+predictions_file: outputs/pred_eng.csv
 confusion_matrix_file: outputs/confusion_matrix_eng.png
+
+
+cv_folds: 5
+cv_start_fold: 1
+cv_end_fold: 5
+resume_from_checkpoint: false
+
+
+
+
+
+
