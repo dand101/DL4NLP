@@ -1,0 +1,60 @@
+seed: 42
+language: zho
+
+data_root: data/dev_phase/subtask1
+train_file: train/eng.csv
+dev_file: dev/eng.csv
+
+text_col: text
+label_col: polarization
+id_col: id
+
+num_labels: 2
+model_name: sentence-transformers/paraphrase-multilingual-mpnet-base-v2
+max_length: 256
+
+test_size: 0.1
+balance_test: false
+
+use_class_weights: false
+
+#learning_rate: 1e-5
+learning_rate: 5e-6
+lr_scheduler_type: cosine
+
+optim: adamw_torch
+max_grad_norm: 1
+
+
+weight_decay: 0.01
+warmup_ratio: 0.10
+label_smoothing_factor: 0.05
+
+
+num_train_epochs: 5
+
+per_device_train_batch_size: 4
+per_device_eval_batch_size: 8
+gradient_accumulation_steps: 4
+
+fp16: true
+
+eval_strategy: steps
+eval_steps: 100
+
+save_strategy: steps
+save_steps: 100
+save_total_limit: 1
+
+load_best_model_at_end: true
+
+metric_for_best_model: eval_macro_f1
+greater_is_better: true
+
+logging_steps: 50
+report_to: none
+
+output_dir: outputsnaan/checkpoints-aaa
+outputs_dir: outputsaann
+predictions_file: outputsaann/bb/pred_eng.csv
+confusion_matrix_file: outputsaann/bb/confusion_matrix_eng.png
